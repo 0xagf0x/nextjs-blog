@@ -1,10 +1,12 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '@/styles/Home.module.css';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 //api request
 import {GraphQLClient, gql} from 'graphql-request';
 import BlogCard from 'components/BlogCard';
+import Select from 'react-select';
+
 
 const graphcms = new GraphQLClient("https://api-us-west-2.hygraph.com/v2/cld63e58r1jec01um4zhf2rne/master");
 
@@ -43,15 +45,57 @@ export async function getStaticProps() {
 }
 
 export default function Home({posts}:any) {
-  useEffect(() => {
-    console.log(posts);
+  const [defaultOrder, setDefaultOrder] = useState(true);
+  const [abcOrder, setAbcOrder] = useState(false);
+  const [mostRecent, setMostRecent] = useState(false);
 
-    // get dates
-    posts.forEach((element: { datePublished: any; }) => {
-      console.log('el', element.datePublished);
+  const dates: { datePublished: any; }[] = [];
+  const titles: never[] | ((arg0: any) => void) = [];
+  const abcOrderTitles = [];
+
+  const handleSelectChange = (e:any) => {
+    console.log(e.value);
+
+    if (e.value === "Alphabetical") {
+      setAbcOrder(true);
+      setMostRecent(false);
+      setDefaultOrder(false);
+
+      console.log(defaultOrder);
+      console.log(abcOrder);
+      console.log(mostRecent);
+    } else if (e.value === "Most Recent") {
+      setAbcOrder(false);
+      setMostRecent(true);
+      setDefaultOrder(false);
+    } else {
+      setAbcOrder(false);
+      setMostRecent(false);
+      setDefaultOrder(true);
+    }
+  }
+
+  useEffect(() => {
+    console.log('posts', posts);
+
+    // get dates + titles
+    posts.forEach((_blogPost: { datePublished:string; title:string }) => {
+      dates.push(_blogPost.datePublished)
+      titles.push(_blogPost.title)
     });
+
+    console.log('dates', dates)
+    console.log('titles', titles)
+    console.log('sorted title', titles.sort()) // sorts titles in ABC
   }, []);
-  
+
+  const options = [
+    { value: 'Default', label: 'Default' },
+    { value: 'Alphabetical', label: 'Alphabetical' },
+    { value: 'Most Recent', label: 'Most Recent' },
+  ]
+
+ 
   return (
     <>
       <Head>
@@ -61,18 +105,57 @@ export default function Home({posts}:any) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-        <div className={styles.cardGrid}>
-          {posts.map((post:any) => (
-            <BlogCard 
-              key={post.id}
-              title={post.title}
-              author={post.author}
-              datePublished={post.datePublished}
-              slug={post.slug}
-              coverPhoto={post.coverPhoto}
-            />
-          ))}
-        </div>
+        <Select 
+          className={styles.select}
+          options={options}
+          onChange={handleSelectChange}
+        />
+
+        {defaultOrder && 
+          <div className={styles.cardGrid}>
+            {posts.map((post:any) => (
+              <BlogCard 
+                key={post.id}
+                title={post.title}
+                author={post.author}
+                datePublished={post.datePublished}
+                slug={post.slug}
+                coverPhoto={post.coverPhoto}
+              />
+            ))}
+          </div>
+        }
+
+        {abcOrder && 
+          <div className={styles.cardGrid}>
+            {posts.map((post:any) => (
+              <BlogCard 
+                key={post.id}
+                title={post.title}
+                author={post.author}
+                datePublished={post.datePublished}
+                slug={post.slug}
+                coverPhoto={post.coverPhoto}
+              />
+            ))}
+          </div>
+        }
+
+        {mostRecent && 
+           <div className={styles.cardGrid}>
+            {posts.map((post:any) => (
+              <BlogCard 
+                key={post.id}
+                title={post.title}
+                author={post.author}
+                datePublished={post.datePublished}
+                slug={post.slug}
+                coverPhoto={post.coverPhoto}
+              />
+            ))}
+          </div>
+        }
+        
       </main>
     </>
   )

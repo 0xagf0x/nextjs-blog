@@ -1,15 +1,21 @@
 .main {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 100%;
+  width: fit-content;
   padding: 28px;
+}
+
+.select {
+  margin-left: auto;
 }
 
 .cardGrid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 2rem;
+  margin-top: 64px;
 }
 
 @media (max-width: 1100px) {
