@@ -1,0 +1,57 @@
+.card {
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 8px;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.link {
+  text-decoration: none;
+  display: flex;
+}
+
+.imageContainer {
+  display: flex;
+  width: 100%;
+  height: 250px;
+}
+
+.image {
+  width: 100%;
+  border-radius: 8px 8px 0 0;
+  object-fit: fill;
+}
+
+.cardInner {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  cursor: default;
+}
+
+.title {
+  color: #000;
+  text-decoration: none;
+}
+
+.datePublished {
+  margin-top: 8px;
+  font-size: 16px;
+  color: black;
+}
+
+/*  author section  */
+.authorContainer {
+  display: flex;
+  align-items: center;
+  margin-top: 16px;
+}
+
+.authorAvatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 100%;
+  margin-right: 8px;;
+}
