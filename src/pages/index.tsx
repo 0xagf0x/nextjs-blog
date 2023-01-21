@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '@/styles/Home.module.css';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 //api request
 import {GraphQLClient, gql} from 'graphql-request';
 import BlogCard from 'components/BlogCard';
@@ -49,9 +49,31 @@ export default function Home({posts}:any) {
   const [abcOrder, setAbcOrder] = useState(false);
   const [mostRecent, setMostRecent] = useState(false);
 
-  const dates: { datePublished: any; }[] = [];
-  const titles: never[] | ((arg0: any) => void) = [];
-  const abcOrderTitles = [];
+  const sortByAlphabetical = [].concat(posts)
+    .sort((a:any, b:any) => a.title > b.title ? 1 : -1)
+    .map((item:any, i) => 
+        <BlogCard 
+          key={i}
+          title={item.title}
+          author={item.author}
+          datePublished={item.datePublished}
+          slug={item.slug}
+          coverPhoto={item.coverPhoto}
+        />
+    );
+
+  const sortByDatePublished = [].concat(posts)
+    .sort((a:any, b:any) => a.datePublished > b.datePublished ? 1 : -1)
+    .map((item:any, i) => 
+        <BlogCard 
+          key={i}
+          title={item.title}
+          author={item.author}
+          datePublished={item.datePublished}
+          slug={item.slug}
+          coverPhoto={item.coverPhoto}
+        />
+    );
 
   const handleSelectChange = (e:any) => {
     console.log(e.value);
@@ -60,10 +82,6 @@ export default function Home({posts}:any) {
       setAbcOrder(true);
       setMostRecent(false);
       setDefaultOrder(false);
-
-      console.log(defaultOrder);
-      console.log(abcOrder);
-      console.log(mostRecent);
     } else if (e.value === "Most Recent") {
       setAbcOrder(false);
       setMostRecent(true);
@@ -75,27 +93,12 @@ export default function Home({posts}:any) {
     }
   }
 
-  useEffect(() => {
-    console.log('posts', posts);
-
-    // get dates + titles
-    posts.forEach((_blogPost: { datePublished:string; title:string }) => {
-      dates.push(_blogPost.datePublished)
-      titles.push(_blogPost.title)
-    });
-
-    console.log('dates', dates)
-    console.log('titles', titles)
-    console.log('sorted title', titles.sort()) // sorts titles in ABC
-  }, []);
-
-  const options = [
+  const selectOptions = [
     { value: 'Default', label: 'Default' },
     { value: 'Alphabetical', label: 'Alphabetical' },
     { value: 'Most Recent', label: 'Most Recent' },
   ]
 
- 
   return (
     <>
       <Head>
@@ -107,7 +110,7 @@ export default function Home({posts}:any) {
       <main className={styles.main}>
         <Select 
           className={styles.select}
-          options={options}
+          options={selectOptions}
           onChange={handleSelectChange}
         />
 
@@ -128,31 +131,13 @@ export default function Home({posts}:any) {
 
         {abcOrder && 
           <div className={styles.cardGrid}>
-            {posts.map((post:any) => (
-              <BlogCard 
-                key={post.id}
-                title={post.title}
-                author={post.author}
-                datePublished={post.datePublished}
-                slug={post.slug}
-                coverPhoto={post.coverPhoto}
-              />
-            ))}
+              {sortByAlphabetical}
           </div>
         }
 
         {mostRecent && 
            <div className={styles.cardGrid}>
-            {posts.map((post:any) => (
-              <BlogCard 
-                key={post.id}
-                title={post.title}
-                author={post.author}
-                datePublished={post.datePublished}
-                slug={post.slug}
-                coverPhoto={post.coverPhoto}
-              />
-            ))}
+             {sortByDatePublished}
           </div>
         }
         
