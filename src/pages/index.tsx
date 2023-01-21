@@ -5,7 +5,6 @@ import styles from '@/styles/Home.module.css';
 import {GraphQLClient, gql} from 'graphql-request';
 import BlogCard from 'components/BlogCard';
 
-
 const graphcms = new GraphQLClient("https://api-us-west-2.hygraph.com/v2/cld63e58r1jec01um4zhf2rne/master");
 
 // add what data we want to pull out

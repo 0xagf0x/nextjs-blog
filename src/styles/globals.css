@@ -5,6 +5,9 @@
   font-weight: 400;
 }
 
-html, body {
-  background-color: #EFEFEF;
+body,
+html {
+  margin: 0;
+  padding: 0;
+  background-color: red;
 }
