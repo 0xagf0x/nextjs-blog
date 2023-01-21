@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '@/styles/Home.module.css';
+import { useEffect } from 'react';
 //api request
 import {GraphQLClient, gql} from 'graphql-request';
 import BlogCard from 'components/BlogCard';
@@ -41,8 +42,16 @@ export async function getStaticProps() {
   }
 }
 
-
 export default function Home({posts}:any) {
+  useEffect(() => {
+    console.log(posts);
+
+    // get dates
+    posts.forEach((element: { datePublished: any; }) => {
+      console.log('el', element.datePublished);
+    });
+  }, []);
+  
   return (
     <>
       <Head>

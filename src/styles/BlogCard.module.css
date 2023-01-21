@@ -6,7 +6,17 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-width: 450px;
+  max-width: 500px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.card:hover {
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+
+.card:hover .image {
+  transform: scale(1.15);
+  -webkit-transition: transform 0.75s ease-in-out;
 }
 
 .link {
@@ -18,6 +28,7 @@
   display: flex;
   width: 100%;
   height: 250px;
+  overflow: hidden;
 }
 
 .image {
@@ -31,6 +42,7 @@
   flex-direction: column;
   padding: 16px;
   cursor: default;
+  height: -webkit-fill-available;
 }
 
 .title {
@@ -39,7 +51,7 @@
 }
 
 .datePublished {
-  margin-top: 8px;
+  margin: 8px 0 16px;
   font-size: 16px;
   color: black;
 }
@@ -48,7 +60,7 @@
 .authorContainer {
   display: flex;
   align-items: center;
-  margin-top: 16px;
+  margin-top: auto;
 }
 
 .authorAvatar {
