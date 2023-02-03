@@ -1,12 +1,14 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '@/styles/Home.module.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 //api request
 import {GraphQLClient, gql} from 'graphql-request';
 import BlogCard from 'components/BlogCard';
-import Select from 'react-select';
-
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
 
 const graphcms = new GraphQLClient("https://api-us-west-2.hygraph.com/v2/cld63e58r1jec01um4zhf2rne/master");
 
@@ -48,6 +50,12 @@ export default function Home({posts}:any) {
   const [defaultOrder, setDefaultOrder] = useState(true);
   const [abcOrder, setAbcOrder] = useState(false);
   const [mostRecent, setMostRecent] = useState(false);
+  const [value, setValue] = useState("");
+
+  useEffect(() => {
+    setValue('lol');
+  }, [])
+  
 
   const sortByAlphabetical = [].concat(posts)
     .sort((a:any, b:any) => a.title > b.title ? 1 : -1)
@@ -75,23 +83,26 @@ export default function Home({posts}:any) {
         />
     );
 
-  const handleSelectChange = (e:any) => {
-    console.log(e.value);
-
-    if (e.value === "Alphabetical") {
+  const handleChange = (e: SelectChangeEvent) => {
+    console.log(e.target.value);
+    // setValue(e.target.value as string);
+    if (e.target.value === "Alphabetical") {
       setAbcOrder(true);
       setMostRecent(false);
       setDefaultOrder(false);
-    } else if (e.value === "Most Recent") {
+      setValue('LMAO');
+    } else if (e.target.value === "Most Recent") {
       setAbcOrder(false);
       setMostRecent(true);
       setDefaultOrder(false);
+      setValue('Most Recent');
     } else {
       setAbcOrder(false);
       setMostRecent(false);
       setDefaultOrder(true);
+      setValue('Default');
     }
-  }
+  };
 
   const selectOptions = [
     { value: 'Default', label: 'Default' },
@@ -108,12 +119,20 @@ export default function Home({posts}:any) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-        <Select 
-          className={styles.select}
-          options={selectOptions}
-          onChange={handleSelectChange}
-        />
-
+        <FormControl  style={{width: 550}}>
+          <InputLabel id="demo-simple-select-label">Sort By</InputLabel>
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            label=""
+            onChange={handleChange}
+            defaultValue = ""
+          >
+            {selectOptions.map((item:any, index:number) => (
+              <MenuItem key={index + 1} value={item.value}>{item.label}</MenuItem>
+            ))}
+          </Select>
+        </FormControl>
         {defaultOrder && 
           <div className={styles.cardGrid}>
             {posts.map((post:any) => (
@@ -140,7 +159,6 @@ export default function Home({posts}:any) {
              {sortByDatePublished}
           </div>
         }
-        
       </main>
     </>
   )
