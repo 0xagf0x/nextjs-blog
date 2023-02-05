@@ -13,7 +13,7 @@
   --gradientAngle: -12deg;
   transform: skewY(var(--gradientAngle));
 
-  @media (max-width: 600px) {
+  @media (max-width: $mobile) {
     height: 80%;
   }
 }

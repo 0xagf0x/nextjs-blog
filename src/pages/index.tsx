@@ -12,12 +12,8 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 
-// import '../styles/scss/stripe.scss';
-// import '../js/Gradient.js';
 
 const graphcms = new GraphQLClient("https://api-us-west-2.hygraph.com/v2/cld63e58r1jec01um4zhf2rne/master");
-
-// add what data we want to pull out
 const QUERY = gql`
   {
     posts {
@@ -52,10 +48,9 @@ export async function getStaticProps() {
 }
 
 export default function Home({posts}:any) {
-  const [defaultOrder, setDefaultOrder] = useState(true);
+  const [defaultOrder, setDefaultOrder] = useState(false);
   const [abcOrder, setAbcOrder] = useState(false);
-  const [mostRecent, setMostRecent] = useState(false);
-  const [labelValue, setLabelValue] = useState("");
+  const [mostRecent, setMostRecent] = useState(true);
 
   const sortByAlphabetical = [].concat(posts)
     .sort((a:any, b:any) => a.title > b.title ? 1 : -1)
@@ -84,23 +79,19 @@ export default function Home({posts}:any) {
     );
 
   const handleChange = (e: SelectChangeEvent) => {
-    console.log(e.target.value);
-    setLabelValue(e.target.value as string);
+    // console.log(e.target.value);
     if (e.target.value === "Alphabetical") {
       setAbcOrder(true);
       setMostRecent(false);
       setDefaultOrder(false);
-      setLabelValue('Alphabetical');
     } else if (e.target.value === "Most Recent") {
       setAbcOrder(false);
       setMostRecent(true);
       setDefaultOrder(false);
-      setLabelValue('Most Recent');
     } else {
       setAbcOrder(false);
       setMostRecent(false);
       setDefaultOrder(true);
-      setLabelValue('Default');
     }
   };
 
@@ -108,7 +99,7 @@ export default function Home({posts}:any) {
     { value: 'Default', label: 'Default' },
     { value: 'Alphabetical', label: 'Alphabetical' },
     { value: 'Most Recent', label: 'Most Recent' },
-  ]
+  ];
 
   return (
     <>
@@ -116,7 +107,7 @@ export default function Home({posts}:any) {
 
         {/* sear */}
         <Container maxWidth="sm">
-           <FormControl  style={{width: '100%'}}>
+           <FormControl  style={{width: '100%'}} className='select-block'>
             <InputLabel id="demo-simple-select-label">Sort By</InputLabel>
             <Select
               labelId="demo-simple-select-label"

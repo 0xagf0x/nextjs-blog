@@ -10,7 +10,7 @@ import CodeIcon from '../../public/code.png';
 import styles from '@/styles/app.module.css';
 import '../styles/scss/main.scss';
 import {Gradient} from '../js/Gradient';
-import Footer from '@/components/Footer/Footer';
+import Footer from '../../components/Footer/Footer';
 
 export default function App({ Component, pageProps }: AppProps) {
 
