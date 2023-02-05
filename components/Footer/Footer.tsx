@@ -5,11 +5,11 @@ import Image from 'next/image';
 // mui
 import { Box, Container, Grid, Typography } from "@mui/material";
 //assets
-import CodeIcon from '../../../public/code.png';
-import LinkedinIcon from '../../../public/socials/icon-linkedin.svg'
-import TwitterIcon from '../../../public/socials/icon-twitter.svg';
-import InstagramIcon from '../../../public/socials/icon-instagram.svg'
-import FacebookIcon from '../../../public/socials/icon-facebook.svg'
+import CodeIcon from '../../public/code.png';
+import LinkedinIcon from '../../public/socials/icon-linkedin.svg'
+import TwitterIcon from '../../public/socials/icon-twitter.svg';
+import InstagramIcon from '../../public/socials/icon-instagram.svg'
+import FacebookIcon from '../../public/socials/icon-facebook.svg'
 
 
 export const Footer: FC = (): ReactElement => {
