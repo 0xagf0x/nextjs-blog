@@ -16,7 +16,6 @@ export default function App({ Component, pageProps }: AppProps) {
   useEffect(() => {
     // Create instance
     const gradient = new Gradient()
-
     // Call `initGradient` with the selector to the canvas
     gradient.initGradient('#gradient-canvas');
   }, []);
@@ -36,7 +35,7 @@ export default function App({ Component, pageProps }: AppProps) {
           <Link className={styles.navLink} href="/">
             <Image
               src={CodeIcon}
-              alt="Picture of the author"
+              alt="code icon"
               width={48}
               height={48}
             />
