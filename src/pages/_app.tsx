@@ -8,17 +8,18 @@ import Image from 'next/image';
 import Script from 'next/script';
 import CodeIcon from '../../public/code.png';
 import styles from '@/styles/app.module.css';
-import '../styles/scss/stripe.scss';
+import '../styles/scss/main.scss';
 import {Gradient} from '../js/Gradient';
 
 export default function App({ Component, pageProps }: AppProps) {
 
-  // Create your instance
-  const gradient = new Gradient()
+  useEffect(() => {
+    // Create instance
+    const gradient = new Gradient()
 
-  // Call `initGradient` with the selector to your canvas
-  gradient.initGradient('#gradient-canvas')
-        
+    // Call `initGradient` with the selector to the canvas
+    gradient.initGradient('#gradient-canvas');
+  }, []);
   
   return (
     <>
