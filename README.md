@@ -15,3 +15,6 @@ pnpm dev
 
 # Gradient
 https://whatamesh.vercel.app/
+
+# Social Icons
+https://www.iconfinder.com/
