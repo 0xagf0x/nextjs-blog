@@ -4,6 +4,9 @@ import { useState } from 'react';
 //api request
 import {GraphQLClient, gql} from 'graphql-request';
 import BlogCard from 'components/BlogCard';
+
+//mui
+import Container from '@mui/material/Container';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -110,20 +113,24 @@ export default function Home({posts}:any) {
   return (
     <>
       <main className={styles.main}>
-        <FormControl  style={{width: 550}}>
-          <InputLabel id="demo-simple-select-label">Sort By</InputLabel>
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            label="Sort By"
-            onChange={handleChange}
-            defaultValue = ""
-          >
-            {selectOptions.map((item:any, index:number) => (
-              <MenuItem key={index + 1} value={item.value}>{item.label}</MenuItem>
-            ))}
-          </Select>
-        </FormControl>
+
+        {/* sear */}
+        <Container maxWidth="sm">
+           <FormControl  style={{width: '100%'}}>
+            <InputLabel id="demo-simple-select-label">Sort By</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              label="Sort By"
+              onChange={handleChange}
+              defaultValue = ""
+            >
+              {selectOptions.map((item:any, index:number) => (
+                <MenuItem key={index + 1} value={item.value}>{item.label}</MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </Container>
 
         {defaultOrder && 
           <div className={styles.cardGrid}>
